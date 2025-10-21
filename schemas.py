@@ -7,6 +7,8 @@ class Listing(BaseModel):
     title: str
     user_id: str 
     description: Optional[str] = None
+    location: Optional[str] = None
+
     status: Optional[str] = "active"
 
 # Schema for login request
@@ -15,9 +17,11 @@ class LoginRequest(BaseModel):
     password: str
 
 
+# Schema for user model
 class User(BaseModel):
     user_id: str
     username: str
     full_name: Optional[str] = None
+    location: Optional[str] = None
     email: str
     password: str
