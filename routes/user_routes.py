@@ -8,7 +8,7 @@ from schemas import LoginRequest, SignupRequest
 router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.post("/signup")
-def signup(request: SignupRequest):
+async def signup(request: SignupRequest):
     print("Signup request received:", request)
     email = request.email
     password = request.password
@@ -21,7 +21,7 @@ def signup(request: SignupRequest):
     )
 
     users_db = UsersDB()
-    user_id = users_db.add_user(user.model_dump())
+    user_id = await  users_db.add_user(user.model_dump())
     return {"message": "User created", "user_id": user_id}
 
 @router.post("/login")

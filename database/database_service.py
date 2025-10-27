@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from tinydb import TinyDB, Query
 
 # Initialize separate tables for Firestore-like collections
@@ -23,6 +24,27 @@ class ListingDB:
 
     async def get_all_listings(self):
         return listing_table.all()
+
+    async def get_listing_info_by_id(self, listing_id):
+        ListingQuery = Query()
+        listings = listing_table.search(ListingQuery.id == listing_id)
+
+        if not listings:
+            raise HTTPException(status_code=404, detail="No Listings Found")
+
+        print(f"Listings found for id {listing_id}: {listings}")
+
+        # Extract user's name from the user_id of the listing
+        user_id = listings[0]['user_id']
+
+        UsersQuery = Query()
+        user_info = users_table.search(UsersQuery.id == user_id)[0]
+
+        print(f"Found user info: {user_info}")
+
+        return {"listings": listings, "user_name": user_info['name']}
+
+
 
     async def get_listings_by_user(self, user_id):
         ListingQuery = Query()
