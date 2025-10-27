@@ -10,14 +10,17 @@ router = APIRouter(prefix="/users", tags=["Users"])
 @router.post("/signup")
 async def signup(request: SignupRequest):
     print("Signup request received:", request)
+
     email = request.email
     password = request.password
+    
     print(f"Signup attempt for email: {email}")
+    
     user = User(
         id="user_" + email,
         name=email.split("@")[0],
         email=email,
-        password=password
+        password=password,
     )
 
     users_db = UsersDB()

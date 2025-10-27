@@ -12,11 +12,14 @@ async def get_all_listings():
     return posts
 
 @router.post("/create", response_model=dict)
-async def add_listing(post: Listing):
+async def add_listing(listing: Listing):
     """Add a new listing to the database."""
-    print("Got request to add listing:", post)
+    print("Got request to add listing:", listing)
+
     listing_db = ListingDB()
-    listing_id = await listing_db.add_listing(post.model_dump())
+    
+    listing_id = await listing_db.add_listing(listing.model_dump())
+    
     return {"message": "Listing added", "listing_id": listing_id}
 
 

@@ -1,6 +1,5 @@
-from datetime import date
 from enum import Enum
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 
 # Class representing the status of the Listing
@@ -17,4 +16,5 @@ class Listing(BaseModel):
     created_at: str 
     status: Status
     category: str  
-    location: str 
+    latitude: Optional[float] = Field(None, description="Latitude of item location")
+    longitude: Optional[float] = Field(None, description="Longitude of item location")
