@@ -19,13 +19,5 @@ class SignupRequest(BaseModel):
     email: str
     password: str
     created_at: str
-
-
-# Schema for user model
-class User(BaseModel):
-    user_id: str
-    username: str
-    full_name: Optional[str] = None
-    location: Optional[str] = None
-    email: str
-    password: str
+    latitude: Optional[float] = None
+    longitude: Optional[float]= None
