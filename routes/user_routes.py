@@ -3,7 +3,7 @@ from models.user_model import User
 from database.database_service import UsersDB
 from fastapi import HTTPException
 
-from schemas import LoginRequest, SignupRequest
+from schemas import LocationUpdateRequest, LoginRequest, SignupRequest
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -58,3 +58,15 @@ async def get_users():
     users = await users_db.get_all_users()
     return users
 
+
+@router.put("/update_location")
+async def update_location(request: LocationUpdateRequest):
+    user_id = request.user_id
+    latitude = request.latitude
+    longitude = request.longitude
+
+    users_db = UsersDB()
+    updated_user = await users_db.update_user_location(user_id, latitude, longitude)
+    if not updated_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"message": "Location updated", "user": updated_user}

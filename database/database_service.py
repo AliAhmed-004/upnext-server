@@ -17,6 +17,11 @@ class UsersDB:
         UserQuery = Query()
         result = users_table.search(UserQuery.email == email)
         return result[0] if result else None
+    
+    async def update_user_location(self, user_id, latitude, longitude):
+        UserQuery = Query()
+        users_table.update({'latitude': latitude, 'longitude': longitude}, UserQuery.id == user_id)
+        return users_table.search(UserQuery.id == user_id)[0]
 
 class ListingDB:
     async def add_listing(self, listing_data):
@@ -42,7 +47,7 @@ class ListingDB:
 
         print(f"Found user info: {user_info}")
 
-        return {"listings": listings, "user_name": user_info['name']}
+        return {"listings": listings, "user_name": user_info['username']}
 
 
 

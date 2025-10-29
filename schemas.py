@@ -21,3 +21,8 @@ class SignupRequest(BaseModel):
     created_at: str
     latitude: Optional[float] = None
     longitude: Optional[float]= None
+
+class LocationUpdateRequest(BaseModel):
+    user_id: str
+    latitude: float
+    longitude: float
