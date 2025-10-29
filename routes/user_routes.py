@@ -26,6 +26,7 @@ async def signup(request: SignupRequest):
     )
 
     users_db = UsersDB()
+    await  users_db.add_user(user.model_dump())
     return {"message": "User created", "user": user.model_dump()}
 
 @router.post("/login")
