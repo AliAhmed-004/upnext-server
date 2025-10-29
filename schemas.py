@@ -18,6 +18,7 @@ class LoginRequest(BaseModel):
 class SignupRequest(BaseModel):
     email: str
     password: str
+    created_at: str
 
 
 # Schema for user model

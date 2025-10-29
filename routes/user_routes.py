@@ -13,6 +13,7 @@ async def signup(request: SignupRequest):
 
     email = request.email
     password = request.password
+    created_at = request.created_at
     
     print(f"Signup attempt for email: {email}")
     
@@ -21,11 +22,11 @@ async def signup(request: SignupRequest):
         name=email.split("@")[0],
         email=email,
         password=password,
+        created_at=created_at
     )
 
     users_db = UsersDB()
-    user_id = await  users_db.add_user(user.model_dump())
-    return {"message": "User created", "user_id": user_id}
+    return {"message": "User created", "user": user.model_dump()}
 
 @router.post("/login")
 async def login(request: LoginRequest):
