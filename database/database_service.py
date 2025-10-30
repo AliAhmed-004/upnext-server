@@ -53,4 +53,9 @@ class ListingDB:
 
     async def get_listings_by_user(self, user_id):
         ListingQuery = Query()
-        return listing_table.search(ListingQuery.user_id == user_id)
+        listings = listing_table.search(ListingQuery.user_id == user_id)
+
+        # Sort listings by creation date in descending order
+        listings.sort(key=lambda x: x['created_at'], reverse=True)
+
+        return listings
