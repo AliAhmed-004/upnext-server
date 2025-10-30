@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from models.listing_model import Listing
 from database.database_service import ListingDB
 
-router = APIRouter(prefix="/listing", tags=["Posts"])
+router = APIRouter(prefix="/listing", tags=["Listings"])
 
 @router.get("/get_all", response_model=list[Listing])
 async def get_all_listings():
