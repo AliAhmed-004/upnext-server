@@ -59,3 +59,8 @@ class ListingDB:
         listings.sort(key=lambda x: x['created_at'], reverse=True)
 
         return listings
+
+    async def delete_listing(self, listing_id):
+        ListingQuery = Query()
+        listing_table.remove(ListingQuery.id == listing_id)
+        return True

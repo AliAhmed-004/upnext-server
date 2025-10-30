@@ -63,3 +63,15 @@ async def get_number_of_listings(user_id: str):
     num_listings = len(user_listings)
 
     return {"user_id": user_id, "count": num_listings}
+
+
+@router.delete("/delete_listing/{listing_id}", response_model=dict)
+async def delete_listing(listing_id: str):
+    """Delete a listing by its ID."""
+    print(f"Deleting listing with id: {listing_id}")
+    listing_db = ListingDB()
+
+    # Delete listing by ID
+    await listing_db.delete_listing(listing_id)
+
+    return {"message": f"Listing {listing_id} deleted successfully."}
