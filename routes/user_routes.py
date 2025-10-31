@@ -15,7 +15,9 @@ async def signup(request: SignupRequest):
     
     # Check if user already exists
     users_db = UsersDB()
+    
     existing_user = await users_db.get_user_by_email(email)
+
     if existing_user:
         raise HTTPException(status_code=400, detail="User already exists. Please log in instead.")
 
@@ -35,8 +37,6 @@ async def signup(request: SignupRequest):
         latitude=latitude or None,
         longitude=longitude or None
     )
-
-    users_db = UsersDB()
 
     await  users_db.add_user(user.model_dump())
     return {"message": "User created", "user": user.model_dump()}
